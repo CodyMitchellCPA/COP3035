@@ -6,13 +6,7 @@
 ###Game Mechanics only###
 #setup
 
-import turtle
-
-
 attemptsLeft = 3
-
-
-
 
 answer = "Word my dude"
 uniqueChars = set(answer.lower())
@@ -59,7 +53,7 @@ while attemptsLeft != 0 and correctChars != uniqueChars:
     else:
         attemptsLeft = attemptsLeft - 1
     
-
+#end game prints
 print("Current word: " + currentWord)
 if attemptsLeft == 0:
     print("You lose. Please try again.")
