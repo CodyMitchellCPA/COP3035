@@ -115,16 +115,21 @@ while True:
 				foundWord = False
 				break
 
+		#alternatively, can just test to length of answer w/ length of correctChars
+		#foundWord = False
+		# if len(correctChars) == len(answer):
+		# 	print("YOU WIN!\nThe answer was " + answer + "!\n")
+		# 	gameOver = True
+
 		# if user has found all the letters, the game is over
 		if foundWord:
-			print("YOU WIN!\nThe answer was " + answer + "!")
-			print()
+			print("YOU WIN!\nThe answer was " + answer + "!\n")
 			gameOver = True
 
 	# if letter is not in answer, add it to the missedChars list and remove an attempt
 	else:
 		missedChars = missedChars + letter
-		attemptsLeft = attemptsLeft-1
+		attemptsLeft = attemptsLeft - 1
 
 		# if user has no attempts left, the game is over
 		if attemptsLeft == 0:
