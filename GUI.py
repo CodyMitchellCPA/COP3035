@@ -44,7 +44,7 @@ def drawRectangle(width, height, tilt, penColor, fillColor):
         t.left(90)
     t.end_fill()
 
-def printScreen(answer, guessedLetters):
+def printScreen(answer, guessedLetters, attemptsLeft):
     #parent func that refreshes the screen using each print method
     t.clear()
     t.penup()
@@ -203,7 +203,7 @@ if ' ' in answer:
 gameOver = False
 while True:
     #refresh screen each turn
-    printScreen(answer, guessedLetters)
+    printScreen(answer, guessedLetters, attemptsLeft)
     #end game if win or lose 
     if attemptsLeft == 0:
         print("Boohoo. You lost. The word was: " + answer)
