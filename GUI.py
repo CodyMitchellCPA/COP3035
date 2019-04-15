@@ -1,6 +1,7 @@
 # COP 3035 
 # Final Project - Hangman
 # Cody Mitchell, Haley Little, Camron Clark
+
 '''
     Main game begins on line 200
     TODO:
@@ -8,9 +9,8 @@
             Winning screen
             Losing Screen
             *already asks if user wants to rematch*
-        2. Restart game if user says yes
-            *Prob should make lines 150 - 199 a function so we can loop it*
-        4. Print error when user enters wrong num
+        2. Print error when user enters wrong num
+        3. Print hangman
 '''
 
 from __future__ import print_function		# use Python3 printing
@@ -59,6 +59,7 @@ def printScreen(answer, guessedLetters, attemptsLeft):
     printAttempts(attemptsLeft)
     printGuesses(answer, guessedLetters)
     printWord(answer, guessedLetters)
+    #printHangman(attemptsLeft)
 
 def printAttempts(attemptsLeft):
     #prints # of attempts left at top middle of screen
@@ -71,7 +72,7 @@ def printAttempts(attemptsLeft):
 
 #print each character in box on right side of screen
 def printGuesses(answer, guessedLetters):
-    #outling box
+    #outline box
     t.penup()
     t.setx(325)
     t.sety(-100)
@@ -177,67 +178,53 @@ def printMenu():
     t.pendown()
     t.write("By Cody, Haley, and Camron", font=("Arial", 24, 'normal'))
 
-printMenu()
 
+def gameSetup():
 
-#sample of rand words
-words = 'ash, apple, airplane, amazing, bee sting, bird, baby, birthday cake, bubble, bananas, cat, cow goes moo, chocolate, chicken, cup, dog, diamond, doorbell, door, doll, egg, elephant, easy, ear ache, flying fish, fuzy, fruit, funny, frog, goat, gingerbread man, garden, green bean, greatful, high, hot, hello, happy, horse, ice, ice cream, itch, jolly, jingle, junk, kitchen, knife, kangaroo, leg, library, lion, light beam, leopard, map, milk, milkshake, money, platypus, pants, parachute, pepper, puppy, queen, rainbow, rocket, roof, salt and pepper, school, sandwich, shoes, snail, spaceship, sports, star, swimming, teeth, tennis, tiger, train, triangle, umbrella, vulture, vacuum, wax, water, web, worm, x ray'.split(', ')
+    game = wn.numinput("Start Game", "Please enter 1 or 2 for number of players: ", minval=1, maxval=2)
+    
+    while True:
+        if game == 1:
+            words = 'ash, apple, airplane, amazing, bee sting, bird, baby, birthday cake, bubble, bananas, cat, cow goes moo, chocolate, chicken, cup, dog, diamond, doorbell, door, doll, egg, elephant, easy, ear ache, flying fish, fuzy, fruit, funny, frog, goat, gingerbread man, garden, green bean, greatful, high, hot, hello, happy, horse, ice, ice cream, itch, jolly, jingle, junk, kitchen, knife, kangaroo, leg, library, lion, light beam, leopard, map, milk, milkshake, money, platypus, pants, parachute, pepper, puppy, queen, rainbow, rocket, roof, salt and pepper, school, sandwich, shoes, snail, spaceship, sports, star, swimming, teeth, tennis, tiger, train, triangle, umbrella, vulture, vacuum, wax, water, web, worm, x ray'.split(', ')
+            return randomWord(words) 
+        elif game == 2:
+            return wn.textinput("Choose Word", "Player 2, please enter your challenge word: ").lower()
 
-#Game Option: 1 chooses rand word, 2 makes second player choose word
-#won't let you enter anything besides 1 or 2
-game = wn.numinput("Start Game", "Please enter 1 or 2 for number of players: ", minval=1, maxval=2)
-
+  #Play game
 while True:
-    if game == 1:
-        answer = randomWord(words)
-        break
-    elif game == 2:
-        answer = wn.textinput("Choose Word", "Player 2, please enter your challenge word: ").lower()
-        break
+    #setup
+    attL = 5
+    attemptsLeft = attL
+    guessedLetters = ''
+    correctLetters = ''
+    printMenu()
+    answer = gameSetup()
+    #auto adds ' ' so that user doesn't have to guess a space
+    if ' ' in answer:
+        guessedLetters += ' '
+        correctLetters += ' '
 
-# *** please enter different answer/attemptsLeft here, if testing functionality ***
-#answer = "january embers"
-#change attL, NOT attemptsLeft!
-attL = 5
-attemptsLeft = attL
-guessedLetters = ''
-correctLetters = ''
-#auto adds ' ' so that user doesn't have to guess a space
-if ' ' in answer:
-    guessedLetters += ' '
-    correctLetters += ' '
-
-
-
-
-#Play Game
-gameOver = False
-while True:
-    #refresh screen each turn
-    printScreen(answer, guessedLetters, attemptsLeft)
-    #end game if win or lose 
-    if attemptsLeft == 0:
-        print("Boohoo. You lost. The word was: " + answer)
-        gameOver = True
-    elif len(set(answer)) == len(correctLetters):
-        print("Game over! You did it! The word was: " + answer)
-        gameOver = True
-    else:
-        #get valid word, and either reduce attempts or add to correct letters
-        letter = getInput(guessedLetters)
-        guessedLetters += letter
-        if letter not in answer:
-            attemptsLeft -= 1
-        else:
-            correctLetters += letter
-    if gameOver:
-        rematch = wn.textinput("Game over.", "Would you like to play again? (yes or no)").lower().startswith("y")
-        if rematch:
-            attemptsLeft = attL
-            gameOver = False
-            #TODO: Restart game
-        else:
+    #OK actually play game this time
+    while True:
+        printScreen(answer, guessedLetters, attemptsLeft)
+        if attemptsLeft == 0:
             break
+        elif len(set(answer)) == len(correctLetters):
+            break
+        else:
+            #get valid word, and either reduce attempts or add to correct letters
+            letter = getInput(guessedLetters)
+            guessedLetters += letter
+            if letter not in answer:
+                attemptsLeft -= 1
+            else:
+                correctLetters += letter
+    rematch = wn.textinput("Game over.", "Would you like to play again? (yes or no)").lower().startswith("y")
+    #if user does not want to rematch, ends game
+    if not rematch:
+        break
+    
+
 
 
 wn.exitonclick()
