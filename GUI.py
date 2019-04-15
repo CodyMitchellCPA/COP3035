@@ -10,7 +10,9 @@
             *already asks if user wants to rematch*
         2. Restart game if user says yes
             *Prob should make lines 150 - 199 a function so we can loop it*
+        4. Print error when user enters wrong num
 '''
+
 from __future__ import print_function		# use Python3 printing
 import turtle
 import random
@@ -23,6 +25,8 @@ t.hideturtle()
 t.speed(0)
 wn.tracer(0,0)
 
+wn.screensize()
+wn.setup(width = 1.0, height = 1.0)
 
 ### DEFINITIONS ###
 
@@ -104,6 +108,11 @@ def printGuesses(answer, guessedLetters):
             t.left(180)
             t.pendown()
             i = 0
+        if l not in answer:
+             t.color('red', 'red')
+        else:
+            t.color('black', 'black')
+
         #finally print letter
         t.penup()
         t.forward(30)
@@ -147,26 +156,28 @@ def getInput(guessedLetters):
             return letter
 
 #Menu background
-t.penup()
-t.setx(-485)
-t.sety(-400)
-t.pendown()
-drawRectangle(1000, 300, 0, "#3e6fa0", "#3e6fa0")
+def printMenu():
+    t.clear()
+    t.penup()
+    t.setx(-485)
+    t.sety(-400)
+    t.pendown()
+    drawRectangle(1000, 300, 0, "#3e6fa0", "#3e6fa0")
 
-#Menu GUI that includes name of project and our names
-t.color('black', 'black')
-t.penup()
-t.setx(-150)
-t.sety(50)
-t.pendown()
-t.write("Hangman V1", font=("Arial", 40, 'normal'))
-t.penup()
-t.setx(-200)
-t.sety(0)
-t.pendown()
-t.write("By Cody, Haley, and Camron", font=("Arial", 24, 'normal'))
+    #Menu GUI that includes name of project and our names
+    t.color('black', 'black')
+    t.penup()
+    t.setx(-150)
+    t.sety(50)
+    t.pendown()
+    t.write("Hangman V1", font=("Arial", 40, 'normal'))
+    t.penup()
+    t.setx(-200)
+    t.sety(0)
+    t.pendown()
+    t.write("By Cody, Haley, and Camron", font=("Arial", 24, 'normal'))
 
-
+printMenu()
 
 
 #sample of rand words
@@ -220,7 +231,7 @@ while True:
         else:
             correctLetters += letter
     if gameOver:
-        rematch = wn.textinput("Game over.", "Would you like to play again? (yes or no").lower().startswith("y")
+        rematch = wn.textinput("Game over.", "Would you like to play again? (yes or no)").lower().startswith("y")
         if rematch:
             attemptsLeft = attL
             gameOver = False
