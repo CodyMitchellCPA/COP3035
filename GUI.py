@@ -273,13 +273,11 @@ while True:
         printScreen(answer, guessedLetters, attemptsLeft)
         if attemptsLeft == 0:
             #player has run out of attempts
-            #printScreen(answer, guessedLetters, attemptsLeft)
             errorMessage()
             t.write('Boo you lost. Answer was: ' + answer, font=("Arial", 20, 'bold'))
             break
         elif len(set(answer)) == len(correctLetters):
             #player has guessed all letters in answer
-            #printScreen(answer, guessedLetters, attemptsLeft)
             errorMessage()
             t.write('You win! Answer was: ' + answer, font=("Arial", 20, 'bold'))
             break
