@@ -1,0 +1,27 @@
+#Get user input through turtle
+def getInput(answer, guessedLetters, attemptsLeft):
+    while True:
+        letter = wn.textinput("Guess your word", "Enter a letter: ").lower()
+
+	# can only guess each letter once
+        if letter in guessedLetters:
+                printScreen(answer, guessedLetters, attemptsLeft)
+                errorMessage()
+                t.write('OOPS! You already guessed that letter, try again.', font=("Arial", 12, 'normal'))
+
+	# can only guess one letter at a time
+        elif len(letter) != 1:
+                printScreen(answer, guessedLetters, attemptsLeft)
+                errorMessage()
+                t.write('OOPS! Only enter one letter at one time, try again.', font=("Arial", 12, 'normal'))
+
+	# must be a letter in the alphabet
+        elif letter not in 'abcdefghijklmnopqrstuvwxyz':
+                printScreen(answer, guessedLetters, attemptsLeft)
+                errorMessage()
+                t.write('OOPS! You must enter a letter in the alphabet, try again.', font=("Arial", 12, 'normal'))
+
+	# if correct input then return the letter
+        else:
+                printScreen(answer, guessedLetters, attemptsLeft)
+                return letter
