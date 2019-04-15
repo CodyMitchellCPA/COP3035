@@ -1,16 +1,12 @@
 # COP 3035 
 # Final Project - Hangman
 # Cody Mitchell, Haley Little, Camron Clark
+# Must be run with python 3
 
 '''
     Main game begins on line 200
     TODO:
-        1. Print new screen at end of game
-            Winning screen
-            Losing Screen
-            *already asks if user wants to rematch*
-        2. Print error when user enters wrong num
-        3. Print hangman
+        Print hangman
 '''
 
 from __future__ import print_function		# use Python3 printing
@@ -59,7 +55,19 @@ def printScreen(answer, guessedLetters, attemptsLeft):
     printAttempts(attemptsLeft)
     printGuesses(answer, guessedLetters)
     printWord(answer, guessedLetters)
-    #printHangman(attemptsLeft)
+    printHangman(attemptsLeft)
+
+def printHangman(attemptsLeft):
+    if attemptsLeft == 8:
+        #print base
+    elif attemptsLeft == 7:
+        #print base
+        #print head
+    elif attemptsLeft == 6:
+        #print base
+        #print head
+        #print body
+    #and so on until attempts left == 0
 
 def printAttempts(attemptsLeft):
     #prints # of attempts left at top middle of screen
@@ -77,7 +85,7 @@ def printGuesses(answer, guessedLetters):
     t.setx(325)
     t.sety(-100)
     t.pendown()
-    drawRectangle(150, 400, 0, "black", "white")
+    drawRectangle(190, 400, 0, "black", "white")
 
     #title ("Guessed Letters:")
     t.penup()
@@ -147,14 +155,42 @@ def printWord(answer, guessedLetters):
         else:
             t.write('_', font=("Arial", 20, 'normal'))
 
+def errorMessage():
+    t.color('red', 'red')
+    t.penup()
+    t.setpos(-200, 100)
+    t.pendown()
+
+
 
 #Get user input through turtle
-def getInput(guessedLetters):
-    #must not be guessed, > 1 letter, or non-alphabetical
+def getInput(answer, guessedLetters, attemptsLeft):
     while True:
         letter = wn.textinput("Guess your word", "Enter a letter: ").lower()
-        if letter not in guessedLetters and len(letter) == 1 and letter in 'abcdefghijklmnopqrstuvwxyz':
+
+	# can only guess each letter once
+        if letter in guessedLetters:
+            printScreen(answer, guessedLetters, attemptsLeft)
+            errorMessage()
+            t.write('OOPS! You already guessed that letter, try again.', font=("Arial", 12, 'normal'))
+
+	# can only guess one letter at a time
+        elif len(letter) != 1:
+            printScreen(answer, guessedLetters, attemptsLeft)
+            errorMessage()
+            t.write('OOPS! Only enter one letter at one time, try again.', font=("Arial", 12, 'normal'))
+
+	# must be a letter in the alphabet
+        elif letter not in 'abcdefghijklmnopqrstuvwxyz':
+            printScreen(answer, guessedLetters, attemptsLeft)
+            errorMessage()
+            t.write('OOPS! You must enter a letter in the alphabet, try again.', font=("Arial", 12, 'normal'))
+
+	# if correct input then return the letter
+        else:
+            printScreen(answer, guessedLetters, attemptsLeft)
             return letter
+
 
 #Menu background
 def printMenu():
@@ -208,12 +244,18 @@ while True:
     while True:
         printScreen(answer, guessedLetters, attemptsLeft)
         if attemptsLeft == 0:
+            printScreen(answer, guessedLetters, attemptsLeft)
+            errorMessage()
+            t.write('Boo you lost. Answer was: ' + answer, font=("Arial", 20, 'bold'))
             break
         elif len(set(answer)) == len(correctLetters):
+            printScreen(answer, guessedLetters, attemptsLeft)
+            errorMessage()
+            t.write('You win! Answer was: ' + answer, font=("Arial", 20, 'bold'))
             break
         else:
             #get valid word, and either reduce attempts or add to correct letters
-            letter = getInput(guessedLetters)
+            letter = getInput(answer, guessedLetters, attemptsLeft)
             guessedLetters += letter
             if letter not in answer:
                 attemptsLeft -= 1
