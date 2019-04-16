@@ -217,6 +217,49 @@ def printBody():
     t.pendown()
     t.forward(100)
 
+def printEyes():
+    t.penup()
+    t.seth(0)
+    t.setpos(-185, 175)
+    t.pendown()
+    t.write('X   X')
+
+def printMouth():
+    t.penup()
+    t.seth(0)
+    t.setpos(-185, 165)
+    t.pendown()
+    t.write('____')
+
+def printRightArm():
+    t.penup()
+    t.seth(200)
+    t.setpos(-175, 125)
+    t.pendown()
+    t.forward(60)
+
+def printLeftArm():
+    t.penup()
+    t.seth(-20)
+    t.setpos(-175, 125)
+    t.pendown()
+    t.forward(60)
+
+def printRightLeg():
+    t.penup()
+    t.seth(0)
+    t.right(105)
+    t.setpos(-175, 50)
+    t.pendown()
+    t.forward(60)
+def printLeftLeg():
+    t.penup()
+    t.seth(0)
+    t.right(75)
+    t.setpos(-175, 50)
+    t.pendown()
+    t.forward(60)
+
 def printHangman(attemptsLeft):
     t.seth(0)
     t.color('black', 'black')
@@ -229,21 +272,43 @@ def printHangman(attemptsLeft):
     elif attemptsLeft == 5:
         printHead()
         printBody()
+        printRightArm()
     elif attemptsLeft == 4:
         printHead()
         printBody()
+        printRightArm()
+        printLeftArm()
     elif attemptsLeft == 3:
         printHead()
         printBody()
+        printRightArm()
+        printLeftArm()
+        printRightLeg()
     elif attemptsLeft == 2:
         printHead()
         printBody()
+        printRightArm()
+        printLeftArm()
+        printRightLeg()
+        printLeftLeg()
     elif attemptsLeft == 1:
         printHead()
         printBody()
+        printRightArm()
+        printLeftArm()
+        printRightLeg()
+        printLeftLeg()
+        printEyes()
     elif attemptsLeft == 0:
         printHead()
         printBody()
+        printRightArm()
+        printLeftArm()
+        printRightLeg()
+        printLeftLeg()
+        printEyes()
+        printMouth()
+
     t.seth(0)
 
 ### Game Setup functions ###
@@ -254,7 +319,7 @@ def errorMessage():
     t.color('red', 'red')
     t.penup()
     t.seth(0)
-    t.setpos(-220, -75)
+    t.setpos(-220, -85)
     t.pendown()
 
     
@@ -315,12 +380,13 @@ while True:
         if attemptsLeft == 0:
             #player has run out of attempts
             errorMessage()
-            t.write('Boo you lost. Answer was: ' + answer, font=("Arial", 20, 'bold'))
+            t.write('Boo you lost. The answer was: ' + answer, font=("Arial", 20, 'bold'))
             break
         elif len(set(answer)) == len(correctLetters):
             #player has guessed all letters in answer
             errorMessage()
-            t.write('You win! Answer was: ' + answer, font=("Arial", 20, 'bold'))
+            t.color('green', 'green')
+            t.write('You win! The nswer was: ' + answer, font=("Arial", 20, 'bold'))
             break
         else:
             #get valid char, and either reduce attempts or add to correct letters
