@@ -202,34 +202,48 @@ def printBase():
     t.right(90)
     t.forward(175)
     t.forward(-350)
+
 def printHead():
     t.penup()
-    t.seth(0)
-    t.setpos(-200, 100)
+    t.seth(180)
+    t.setpos(-175, 200)
     t.pendown()
     t.circle(25)
+
+def printBody():
+    t.penup()
+    t.seth(270)
+    t.setpos(-175, 150)
+    t.pendown()
+    t.forward(100)
+
 def printHangman(attemptsLeft):
+    t.seth(0)
     t.color('black', 'black')
     printBase()
     if attemptsLeft == 7:
-        printBase()
         printHead()
     elif attemptsLeft == 6:
-        #print base
-        #print head
-        a = ''
+        printHead()
+        printBody()
     elif attemptsLeft == 5:
-        a = ''
+        printHead()
+        printBody()
     elif attemptsLeft == 4:
-        a = ''
+        printHead()
+        printBody()
     elif attemptsLeft == 3:
-        a = ''
+        printHead()
+        printBody()
     elif attemptsLeft == 2:
-        a = ''
+        printHead()
+        printBody()
     elif attemptsLeft == 1:
-        a = ''
+        printHead()
+        printBody()
     elif attemptsLeft == 0:
-        a = ''
+        printHead()
+        printBody()
     t.seth(0)
 
 ### Game Setup functions ###
@@ -239,7 +253,8 @@ def errorMessage():
     ### Sets pos/ font of turtle to print message to user screen ###
     t.color('red', 'red')
     t.penup()
-    t.setpos(-200, 100)
+    t.seth(0)
+    t.setpos(-220, -75)
     t.pendown()
 
     
@@ -252,19 +267,19 @@ def getInput(answer, guessedLetters, attemptsLeft):
         if letter in guessedLetters:
             printScreen(answer, guessedLetters, attemptsLeft)
             errorMessage()
-            t.write('OOPS! You already guessed that letter, try again.', font=("Arial", 12, 'normal'))
+            t.write('OOPS! You already guessed that letter, try again.', font=("Arial", 12, 'bold'))
 
 	# can only guess one letter at a time
         elif len(letter) != 1:
             printScreen(answer, guessedLetters, attemptsLeft)
             errorMessage()
-            t.write('OOPS! Only enter one letter at one time, try again.', font=("Arial", 12, 'normal'))
+            t.write('OOPS! Only enter one letter at one time, try again.', font=("Arial", 12, 'bold'))
 
 	# must be a letter in the alphabet
         elif letter not in 'abcdefghijklmnopqrstuvwxyz':
             printScreen(answer, guessedLetters, attemptsLeft)
             errorMessage()
-            t.write('OOPS! You must enter a letter in the alphabet, try again.', font=("Arial", 12, 'normal'))
+            t.write('OOPS! You must enter a letter in the alphabet, try again.', font=("Arial", 12, 'bold'))
 
 	# if correct input, return the letter
         else:
