@@ -386,7 +386,7 @@ while True:
             #player has guessed all letters in answer
             errorMessage()
             t.color('green', 'green')
-            t.write('You win! The nswer was: ' + answer, font=("Arial", 20, 'bold'))
+            t.write('You win! The answer was: ' + answer, font=("Arial", 20, 'bold'))
             break
         else:
             #get valid char, and either reduce attempts or add to correct letters
