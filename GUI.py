@@ -1,19 +1,14 @@
 # COP 3035 
 # Final Project - Hangman
 # Cody Mitchell, Haley Little, Camron Clark
-# Must be run with python 3
+# Must be run with Python 3
 
-'''
-    Main game begins on line 200
-    TODO:
-        Print hangman
-'''
 
 from __future__ import print_function		# use Python3 printing
 import turtle
 import random
 
-#graphics setup
+################################# GRAPHICS SETUP #################################
 t = turtle.Turtle()
 wn = turtle.Screen()
 wn.title("Hangman V1.1")
@@ -23,12 +18,10 @@ wn.tracer(0,0)
 wn.screensize()
 wn.setup(width = 1.0, height = 1.0)
 
-### FUNCTIONS ###
 
 
-    ### Graphics Functions ###
-
-#Menu background
+################################# GRAPHICS FUNCTIONS #################################
+# Menu background
 def printMenu():
     #refresh screen, draw background
     t.clear()
@@ -51,7 +44,8 @@ def printMenu():
     t.pendown()
     t.write("By Cody, Haley, and Camron", font=("Arial", 24, 'normal'))
 
-    ### Choose num of players/ select word ###
+
+# Choose num of players/ select word
 def gameSetup():
     #user can only enter 1 or 2
     game = wn.numinput("Start Game", "Please enter 1 or 2 for number of players: ", minval=1, maxval=2)
@@ -60,18 +54,21 @@ def gameSetup():
         #chooses rand word from list
         words = 'ash, apple, airplane, amazing, bee sting, bird, baby, birthday cake, bubble, bananas, cat, cow goes moo, chocolate, chicken, cup, dog, diamond, doorbell, door, doll, egg, elephant, easy, ear ache, flying fish, fuzy, fruit, funny, frog, goat, gingerbread man, garden, green bean, greatful, high, hot, hello, happy, horse, ice, ice cream, itch, jolly, jingle, junk, kitchen, knife, kangaroo, leg, library, lion, light beam, leopard, map, milk, milkshake, money, platypus, pants, parachute, pepper, puppy, queen, rainbow, rocket, roof, salt and pepper, school, sandwich, shoes, snail, spaceship, sports, star, swimming, teeth, tennis, tiger, train, triangle, umbrella, vulture, vacuum, wax, water, web, worm, x ray'.split(', ')
         return randomWord(words) 
+
     elif game == 2:
         #prompts second user to input their challenge word
         return wn.textinput("Choose Word", "Player 2, please enter your challenge word: ").lower()
 
 
-    # helper function for gameSetup
+# Helper function for gameSetup
 def randomWord(words):
 	# selects a random word from the list
 	selection = random.randint(0, len(words) - 1)
 	return words[selection]
 
-    ### Main game screen ###
+
+
+################################# GAME SETUP #################################
 def printScreen(answer, guessedLetters, attemptsLeft):
     #Main func that refreshes the screen tying each print method into one place
     t.clear()
@@ -98,6 +95,7 @@ def drawRectangle(width, height, tilt, penColor, fillColor):
         t.left(90)
     t.end_fill()
 
+
 def printAttempts(attemptsLeft):
     #prints # of attempts left, at top middle of screen
     t.color('black', 'black')
@@ -107,9 +105,9 @@ def printAttempts(attemptsLeft):
     t.pendown()
     t.write('Attempts Left: ' + str(attemptsLeft), font=("Arial", 24, 'normal'))
 
+
 def printGuesses(answer, guessedLetters):
     #print each character in box on right side of screen
-
     #outline box
     t.penup()
     t.setx(325)
@@ -132,6 +130,7 @@ def printGuesses(answer, guessedLetters):
     t.sety(230)
     t.pendown()
     i = 0
+
     for l in guessedLetters:
         #print each letter the user has guessed inside of box
         if l == ' ':
@@ -188,6 +187,8 @@ def printWord(answer, guessedLetters):
         else:
             t.write('_', font=("Arial", 20, 'normal'))
 
+
+# Hangman Graphic
 def printBase():
     t.penup()
     t.setpos(-175, 200)
@@ -252,6 +253,7 @@ def printRightLeg():
     t.setpos(-175, 50)
     t.pendown()
     t.forward(60)
+
 def printLeftLeg():
     t.penup()
     t.seth(0)
@@ -311,9 +313,9 @@ def printHangman(attemptsLeft):
 
     t.seth(0)
 
-### Game Setup functions ###
 
-    
+
+################################# GAME FUNCTIONS #################################
 def errorMessage():
     ### Sets pos/ font of turtle to print message to user screen ###
     t.color('red', 'red')
@@ -353,28 +355,23 @@ def getInput(answer, guessedLetters, attemptsLeft):
 
 
 
-####################################################   MAIN GAME   ####################################################
-
-
-
-
-
+################################# MAIN GAME #################################
 while True:
 
-        #game setup
+    # game setup
     attemptsLeft = 8
     guessedLetters = '' #stores each valid letter the player guesses
     correctLetters = '' #stores each guessed letter that is within answer
     printMenu()
     answer = gameSetup() #chooses rand word for 1 player, user input for 2 player
 
-        #add ' ' if answer has a space in it, because user shouldn't have to guess ' ' 
+    # add ' ' if answer has a space in it, because user shouldn't have to guess ' ' 
     if ' ' in answer:
         guessedLetters += ' '
         correctLetters += ' '
 
 
-        #OK actually play game this time
+    # OK actually play game this time
     while True:
         printScreen(answer, guessedLetters, attemptsLeft)
         if attemptsLeft == 0:
@@ -397,9 +394,11 @@ while True:
             else:
                 correctLetters += letter
 
-        #Asks user to rematch. Ends game if not, restarts if responded with yes
+    # Asks user to rematch. Ends game if not, restarts if responded with yes
     rematch = wn.textinput("Game over.", "Would you like to play again? (yes or no)").lower().startswith("y")   
     if not rematch:
         break
 
 wn.exitonclick()
+
+################################# DONE #################################
