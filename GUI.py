@@ -255,7 +255,7 @@ def printHangman(attemptsLeft):
         printLeftArm()
         printRightLeg()
         printLeftLeg()
-        printEye()
+        printEyes()
     elif attemptsLeft == 0:
         printHead()
         printBody()
@@ -263,7 +263,7 @@ def printHangman(attemptsLeft):
         printLeftArm()
         printRightLeg()
         printLeftLeg()
-        printEye()
+        printEyes()
         printMouth()
 
     t.seth(0)
