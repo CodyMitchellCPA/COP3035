@@ -255,7 +255,7 @@ def printHangman(attemptsLeft):
         printLeftArm()
         printRightLeg()
         printLeftLeg()
-        printRightEye()
+        printEye()
     elif attemptsLeft == 0:
         printHead()
         printBody()
@@ -263,8 +263,8 @@ def printHangman(attemptsLeft):
         printLeftArm()
         printRightLeg()
         printLeftLeg()
-        printRightEye()
-        printLeftEye()
+        printEye()
+        printMouth()
 
     t.seth(0)
 
@@ -276,7 +276,7 @@ def errorMessage():
     t.color('red', 'red')
     t.penup()
     t.seth(0)
-    t.setpos(-220, -75)
+    t.setpos(-220, -85)
     t.pendown()
 
     
@@ -337,12 +337,13 @@ while True:
         if attemptsLeft == 0:
             #player has run out of attempts
             errorMessage()
-            t.write('Boo you lost. Answer was: ' + answer, font=("Arial", 20, 'bold'))
+            t.write('Boo you lost. The answer was: ' + answer, font=("Arial", 20, 'bold'))
             break
         elif len(set(answer)) == len(correctLetters):
             #player has guessed all letters in answer
             errorMessage()
-            t.write('You win! Answer was: ' + answer, font=("Arial", 20, 'bold'))
+            t.color('green', 'green')
+            t.write('You win! The nswer was: ' + answer, font=("Arial", 20, 'bold'))
             break
         else:
             #get valid char, and either reduce attempts or add to correct letters
