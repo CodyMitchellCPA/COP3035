@@ -188,23 +188,49 @@ def printWord(answer, guessedLetters):
         else:
             t.write('_', font=("Arial", 20, 'normal'))
 
-
+def printBase():
+    t.penup()
+    t.setpos(-175, 200)
+    t.seth(0)
+    t.pendown()
+    t.left(90)
+    t.forward(100)
+    t.right(90)
+    t.forward(150)
+    t.right(90)
+    t.forward(350)
+    t.right(90)
+    t.forward(175)
+    t.forward(-350)
+def printHead():
+    t.penup()
+    t.seth(0)
+    t.setpos(-200, 100)
+    t.pendown()
+    t.circle(25)
 def printHangman(attemptsLeft):
-    if attemptsLeft == 8:
-        #print base
-        a = ''
-    elif attemptsLeft == 7:
-        #print base
-        #print head
-        a = ''
+    t.color('black', 'black')
+    printBase()
+    if attemptsLeft == 7:
+        printBase()
+        printHead()
     elif attemptsLeft == 6:
-        a = ''
         #print base
         #print head
-        #print body
-    #and so on until attempts left == 0
-
-
+        a = ''
+    elif attemptsLeft == 5:
+        a = ''
+    elif attemptsLeft == 4:
+        a = ''
+    elif attemptsLeft == 3:
+        a = ''
+    elif attemptsLeft == 2:
+        a = ''
+    elif attemptsLeft == 1:
+        a = ''
+    elif attemptsLeft == 0:
+        a = ''
+    t.seth(0)
 
 ### Game Setup functions ###
 
