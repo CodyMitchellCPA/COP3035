@@ -229,21 +229,43 @@ def printHangman(attemptsLeft):
     elif attemptsLeft == 5:
         printHead()
         printBody()
+        printRightArm()
     elif attemptsLeft == 4:
         printHead()
         printBody()
+        printRightArm()
+        printLeftArm()
     elif attemptsLeft == 3:
         printHead()
         printBody()
+        printRightArm()
+        printLeftArm()
+        printRightLeg()
     elif attemptsLeft == 2:
         printHead()
         printBody()
+        printRightArm()
+        printLeftArm()
+        printRightLeg()
+        printLeftLeg()
     elif attemptsLeft == 1:
         printHead()
         printBody()
+        printRightArm()
+        printLeftArm()
+        printRightLeg()
+        printLeftLeg()
+        printRightEye()
     elif attemptsLeft == 0:
         printHead()
         printBody()
+        printRightArm()
+        printLeftArm()
+        printRightLeg()
+        printLeftLeg()
+        printRightEye()
+        printLeftEye()
+
     t.seth(0)
 
 ### Game Setup functions ###
